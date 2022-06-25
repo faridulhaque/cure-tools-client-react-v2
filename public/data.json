@@ -1,0 +1,26 @@
+[
+    {
+      "name": "Surgical Mask",
+      "price": "100",
+      "minQuantity": "100",
+      "avlQuantity": "5000",
+      "img": "https://i.ibb.co/pJVvLMv/surgicalmask.jpg",
+      "description": "A surgical mask is used for personal protection by mostly healthcare activists. It is important to choose the best manufacturer as a low quality mask can be very harmful for your health."
+    },
+    {
+      "name": "Rubber Gloves",
+      "price": "200",
+      "minQuantity": "100",
+      "avlQuantity": "2000",
+      "img": "https://i.ibb.co/NFM0Kdw/rubbegloves.jpg",
+      "description": "The Rubber Gloves are used by doctors when they do surgery. A good pair of rubber gloves are very much important for the doctor and his patient. We have been providing synthetic rubber gloves for years."
+    },
+    {
+      "name": "Oxygen Mask",
+      "price": "500",
+      "minQuantity": "500",
+      "avlQuantity": "1000",
+      "img": "https://i.ibb.co/m6qbHD7/oxygenmask.jpg",
+      "description": "An oxygen mask is a an emergency kit that helps transferring fresh oxygen from a storage to the lungs. A finest oxygen mask can save life while a cheap mask can lead one to death."
+    }
+  ]

@@ -5,20 +5,20 @@ const Banner = () => {
   return (
     <div>
       <div
-        class="hero hero-main"
+        className="hero hero-main"
         style={{
           backgroundImage: "url(https://i.ibb.co/VxvZH7F/banner.png)",
         }}
       >
-        <div class="hero-overlay"></div>
-        <div class="hero-content text-center text-neutral-content">
-          <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold">Cure Tools</h1>
-            <p class="mb-5">
+        <div className="hero-overlay"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-5 text-5xl font-bold">Cure Tools</h1>
+            <p className="mb-5">
               We have been providing medical equipments
               all over the state for twenty years!
             </p>
-            <button class="btn btn-primary">Get Started</button>
+            <button className="btn btn-primary">Get Started</button>
           </div>
         </div>
       </div>
