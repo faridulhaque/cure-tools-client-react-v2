@@ -1,0 +1,16 @@
+/* styles for banner section started */
+.hero-main{
+    height: 500px;
+}
+/* styles for banner section ended */
+/* ------------------------------- */
+/* styles for specialty section started */
+.specialty{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display : grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    justify-items: center;
+}
