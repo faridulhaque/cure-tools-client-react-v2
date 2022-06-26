@@ -38,7 +38,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="text-4xl text-white">Cure Tools</a>
+          <a className="text-2xl text-white">Cure Tools</a>
         </div>
         <div className="navbar-center hidden lg:flex text-white">
           <ul className="menu menu-horizontal p-0">

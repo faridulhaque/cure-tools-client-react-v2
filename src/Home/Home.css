@@ -1,20 +1,92 @@
 /* styles for banner section started */
-.hero-main{
-    height: 500px;
+.hero-main {
+  height: 500px;
 }
+
 /* styles for banner section ended */
 /* ------------------------------- */
 /* styles for specialty section started */
-.specialty{
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    display : grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 20px;
-    justify-items: center;
+.specialty {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  justify-items: center;
 }
-.icon-container{
-    display: flex;
-    justify-content: center;
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* styles for specialty section ended */
+/* ---------------------------------- */
+/* styles for inventories started */
+.cards-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+
+}
+
+.inventory-card {
+  width: 220px;
+  height: 500px;
+
+  background-color: rgb(38, 49, 82);
+  border-radius: 0 0 50px 0;
+  box-shadow: 0 4px 8px 0 rgb(38, 49, 82, 0.2), 0 6px 20px 0 rgb(38, 49, 82, 0.19);
+
+}
+.inventory-image-container{
+  position: relative;
+}
+.inventory-img {
+  width: 100%;
+  height: 220px;
+ 
+}
+.inventory-button{
+  background-color: rgb(131,140,153);
+  
+  border: none;
+  width: 40px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -25px;
+  right: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 1;
+  
+}
+.fa-plus{
+  font-size: 16px;
+}
+
+/* responsive for mobile devices */
+
+
+@media only screen and (max-width: 570px) {
+  .specialty {
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 15px;
+  }
+
+  .cards-group {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 25px;
+
+  }
+
+  .inventory-card {
+    width: 70%;
+    height: 550px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+  }
 }
