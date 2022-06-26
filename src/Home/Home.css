@@ -65,6 +65,27 @@
 .fa-plus{
   font-size: 16px;
 }
+/* styles for inventories ended */
+/* ---------------------------- */
+/* styles for contact form section started */
+.contact-main{
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding-top: 25px;
+  border: 1px solid rgb(34,43,72);
+
+}
+.contact-text{
+  text-align: center;
+}
+.contact-text-area{
+  resize: none;
+  height: 100px;
+}
+/* styles for contact form section ended */
 
 /* responsive for mobile devices */
 
@@ -88,5 +109,14 @@
     margin-left: 15%;
     margin-right: 15%;
 
+  }
+  .contact-main{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .contact-text{
+    margin: 0 15px;
+    text-align: center;
   }
 }
