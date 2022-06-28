@@ -10,9 +10,10 @@ module.exports = {
       {
         mytheme: {
           primary: "rgb(38,49,82)",
-          secondary: "rgb(69,160,163)",
+          secondary: "red",
           accent: "#37cdbe",
           neutral: "#3d4451",
+          
           "base-100": "#ffffff",
         },
       },

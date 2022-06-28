@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Banner = () => {
   return (
     <div>
       <div
-        className="hero hero-main"
+        className="hero hero-main min-h-screen"
         style={{
           backgroundImage: "url(https://i.ibb.co/VxvZH7F/banner.png)",
         }}
@@ -18,7 +19,7 @@ const Banner = () => {
               We have been providing medical equipments
               all over the state for twenty years!
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <Link to='/signUp' className="btn btn-primary">Get Started</Link>
           </div>
         </div>
       </div>

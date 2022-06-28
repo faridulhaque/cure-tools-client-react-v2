@@ -1,0 +1,30 @@
+.form-entry{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-group-entry{
+    width: 400px;
+    background-color: white;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0;
+    padding: 50px 50px;
+}
+.input-bordered{
+    color: black;
+}
+.text-danger{
+    color: red;
+    text-align: left !important;
+}
+.entry-link{
+    text-decoration: underline;
+}
+@media only screen and (max-width: 570px) {
+    .input-group-entry{
+        width: 94%;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+}

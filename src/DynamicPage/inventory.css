@@ -20,7 +20,7 @@
     border-radius: 50px;
     padding: 50px 30px;
     box-shadow: 0 4px 8px 0;
-    border: 1px solid rgb(34,49,82);
+    border: 1px solid rgb(34, 49, 82);
 }
 
 .inventory-order-form-top {
@@ -35,12 +35,25 @@
 .input-inventory-order-form {
     width: 300px;
 }
-.inventory-order-form-bottom{
+
+.inventory-order-form-bottom {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
 }
-.textarea-inventory-order-form{
+
+.textarea-inventory-order-form {
     resize: none;
     height: 100px;
+}
+
+@media only screen and (max-width: 570px) {
+    .inventory-order-form-top {
+        display: block;
+    }
+
+    .input-inventory-order-form {
+        width: 100%;
+
+    }
 }
