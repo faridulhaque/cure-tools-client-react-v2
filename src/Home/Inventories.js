@@ -27,7 +27,7 @@ const Inventories = () => {
             <div className="inventory-image-container">
               <img className="inventory-img" src={inventory.img} alt="tool" />
               <button
-                onClick={() =>(navigate(`${inventory._id}`))}
+                onClick={() =>(navigate(`/home/${inventory._id}`))}
                 className="inventory-button tooltip tooltip-bottom"
                 data-tip="Order"
               >

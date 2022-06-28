@@ -2,12 +2,15 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className='my-10' id='contact'>
+    <div className="my-10" id="contact">
       <div className="contact-main">
-      <h2 className="text-4xl text-center text-primary my-5">
-        Want To Say Something?
-      </h2>
-        <p className="contact-text">If you have any query or you want to give any feedback, please fill out the form below</p>
+        <h2 className="text-4xl text-center text-primary my-5">
+          Want To Say Something?
+        </h2>
+        <p className="contact-text">
+          If you have any query or you want to give any feedback, please fill
+          out the form below
+        </p>
         <div className="card-body">
           <div className="form-control">
             <label className="label">
@@ -44,7 +47,7 @@ const Contact = () => {
               <span className="label-text">Message</span>
             </label>
             <textarea
-            cl
+              cl
               type="text"
               placeholder="Your message"
               className="input input-bordered contact-text-area"
@@ -56,6 +59,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
