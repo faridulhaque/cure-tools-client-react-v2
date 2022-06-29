@@ -1,8 +1,25 @@
 import React from "react";
 import "./Shared.css";
 import { HashLink as Link } from "react-router-hash-link";
+import { auth } from "../firebase/firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Loading from "./Loading";
+import { signOut } from "firebase/auth";
+
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        
+      })
+      .catch((error) => {});
+  };
+  
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <div className="navbar bg-primary">
@@ -143,35 +160,46 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <img
-            className="nav-avatar"
-            src="https://api.lorem.space/image/face?hash=33791"
-            alt=""
-            avatar
-          />
-          <ul className="menu menu-horizontal p-0">
-            <li>
-              <button
-                className="tooltip tooltip-bottom text-white"
-                data-tip="Sign Out"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  />
-                </svg>
-              </button>
-            </li>
-          </ul>
+          {user ? (
+          
+            <>
+              <img
+                className="nav-avatar"
+                src={user?.photoURL}
+                alt="userImage"
+                
+              />
+              <ul className="menu menu-horizontal p-0">
+                
+                <li>
+                  <button
+                  onClick={handleSignOut}
+                    className="tooltip tooltip-bottom text-white"
+                    data-tip="Sign Out"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </>
+          )
+          : 
+          <Link className='text-primary btn btn-accent' to='/signIn'>Sign In</Link>
+          }
+          
         </div>
       </div>
     </div>

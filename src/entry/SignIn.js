@@ -1,12 +1,14 @@
 import React from "react";
 import "./entry.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase.init";
+import useToken from "../hooks/useToken";
+import Loading from "../Shared/Loading";
 
 const SignIn = () => {
   const {
@@ -19,10 +21,19 @@ const SignIn = () => {
     signInWithEmailAndPassword(data.email, data.password);
     reset();
   };
+  const navigate = useNavigate();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
+  const [token] = useToken(user || gUser);
+
+  if (loading || gLoading) {
+    return <Loading></Loading>;
+  }
+  if (token) {
+    navigate("/");
+  }
   return (
     <div>
       <div
