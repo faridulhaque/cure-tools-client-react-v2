@@ -10,7 +10,7 @@ const Profile = () => {
   const {
     register,
     formState: { errors },
-    
+
     handleSubmit,
   } = useForm();
 
