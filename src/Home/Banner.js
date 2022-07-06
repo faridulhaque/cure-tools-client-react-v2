@@ -1,8 +1,15 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase/firebase.init";
+import Loading from "../Shared/Loading";
 import "./Home.css";
 
 const Banner = () => {
+  const [user, loading, error] = useAuthState(auth);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <div
@@ -16,10 +23,14 @@ const Banner = () => {
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">Cure Tools</h1>
             <p className="mb-5">
-              We have been providing medical equipments
-              all over the state for twenty years!
+              We have been providing medical equipments all over the state for
+              twenty years!
             </p>
-            <Link to='/signUp' className="btn btn-primary">Get Started</Link>
+            {!user && (
+              <Link to="/signUp" className="btn btn-primary">
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
       </div>

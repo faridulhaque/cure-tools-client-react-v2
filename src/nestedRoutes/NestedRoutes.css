@@ -1,0 +1,23 @@
+.drawer-button{
+    margin: 10px;
+    border-radius: 0;
+}
+.profile-container{
+    
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.profile-item-list{
+    display: flex;
+    flex-direction: column;
+}
+.profile-item{
+    display: flex;
+    padding: 10px 10px;
+    
+    align-items: center;
+}
+.profile-item-name{
+    margin-left: 5px;
+}

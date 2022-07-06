@@ -18,7 +18,7 @@ const Navbar = () => {
   };
   
   if (loading) {
-    return <Loading></Loading>;
+    return <div></div>;
   }
   return (
     <div>
@@ -104,7 +104,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="tooltip tooltip-bottom" data-tip="Dashboard">
-              <Link to="/home">
+              <Link to="/dashboard">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
