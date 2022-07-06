@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./inventory.css";
 import { useParams } from "react-router-dom";
+import useUserInfo from "../hooks/useUserInfo";
 
 const Inventory = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
-  console.log(data);
+  const { userInfo } = useUserInfo({});
+  const { email, name, address, phn } = userInfo;
   useEffect(() => {
     fetch(`http://localhost:5000/tool/${id}`)
       .then((res) => res.json())
@@ -49,6 +51,7 @@ const Inventory = () => {
               <span class="label-text">Your name</span>
             </label>
             <input
+              defaultValue={name}
               required
               type="text"
               placeholder="your full name"
@@ -71,6 +74,7 @@ const Inventory = () => {
               <span class="label-text">Your Phone No.</span>
             </label>
             <input
+              defaultValue={phn}
               required
               type="text"
               placeholder="Your phone number"
@@ -82,6 +86,8 @@ const Inventory = () => {
               <span class="label-text">Your Email</span>
             </label>
             <input
+              value={email}
+              disabled
               required
               type="text"
               placeholder="your email"
@@ -94,14 +100,15 @@ const Inventory = () => {
             <label class="label">
               <span class="label-text">
                 Your Address (Please add all details like division, district,
-                locality, road no, house no, and other additional information so the
-                delivery person can easily find out the exact location)
+                locality, road no, house no, and other additional information so
+                the delivery person can easily find out the exact location)
               </span>
             </label>
             <textarea
               type="text"
               placeholder="your full address"
               className="input input-bordered textarea-inventory-order-form"
+              defaultValue={address}
             />
           </div>
           <div className="form-control mt-6">

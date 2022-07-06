@@ -80,7 +80,7 @@ const Contact = () => {
               <span className="label-text">Message</span>
             </label>
             <textarea
-              cl
+              
               type="text"
               placeholder="Your message"
               className="input input-bordered contact-text-area"

@@ -7,10 +7,10 @@ const Dashboard = () => {
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <label for="my-drawer" className="btn btn-primary drawer-button">
+        <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

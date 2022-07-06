@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Shared.css";
 import { HashLink as Link } from "react-router-hash-link";
 import { auth } from "../firebase/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "./Loading";
 import { signOut } from "firebase/auth";
-
+import useUserInfo from "../hooks/useUserInfo";
 
 const Navbar = () => {
-  const [user, loading, error] = useAuthState(auth);
+ const {userInfo, user,  loading} = useUserInfo();
+ 
+ 
+
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        
-      })
+      .then(() => {})
       .catch((error) => {});
   };
-  
+
   if (loading) {
     return <div></div>;
   }
@@ -161,19 +162,12 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-          
             <>
-              <img
-                className="nav-avatar"
-                src={user?.photoURL}
-                alt="userImage"
-                
-              />
+              <img className='nav-avatar' src={userInfo.img} alt="avatar"/>
               <ul className="menu menu-horizontal p-0">
-                
                 <li>
                   <button
-                  onClick={handleSignOut}
+                    onClick={handleSignOut}
                     className="tooltip tooltip-bottom text-white"
                     data-tip="Sign Out"
                   >
@@ -195,11 +189,11 @@ const Navbar = () => {
                 </li>
               </ul>
             </>
-          )
-          : 
-          <Link className='text-primary btn btn-accent' to='/signIn'>Sign In</Link>
-          }
-          
+          ) : (
+            <Link className="text-primary btn btn-accent" to="/signIn">
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -4,8 +4,8 @@ const useToken = (user) => {
   const [token, setToken] = useState("");
   const name = user?.user?.displayName;
   const email = user?.user?.email;
-  const avatar = "https://i.ibb.co/6YK1cXs/avatar.jpg";
-  const image = user?.user?.photoURL ? user?.user?.photoURL : avatar;
+  
+  const image = user?.user?.photoURL;
 
   const userData = {
     name,

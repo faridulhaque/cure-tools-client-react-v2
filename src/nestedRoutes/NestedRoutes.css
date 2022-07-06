@@ -21,3 +21,7 @@
 .profile-item-name{
     margin-left: 5px;
 }
+.nested-route-wrapper-editing{
+    width: 60%;
+    margin: 0 20%;
+}

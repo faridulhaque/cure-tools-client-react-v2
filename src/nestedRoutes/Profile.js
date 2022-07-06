@@ -4,31 +4,58 @@ import { auth } from "../firebase/firebase.init";
 import Loading from "../Shared/Loading";
 import "./NestedRoutes.css";
 import { useForm } from "react-hook-form";
+import useUserInfo from "../hooks/useUserInfo";
 
 const Profile = () => {
   const {
     register,
     formState: { errors },
-    reset,
+    
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+
+  const [isEditing, setEditing] = useState(false);
+  const { userInfo, loading } = useUserInfo();
+
+  const { email, name, img, address, phn } = userInfo;
+
+  // getting data for profile page
+
+  // updating data for profile page
+  const onSubmit = async (data) => {
+    // updating image
+    const formData = new FormData();
+
+    formData.append("img", data.img[0]);
+
+    fetch(
+      "https://api.imgbb.com/1/upload?key=778aabdeab4b1469f4ccd5b8085229fb",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(data);
+      });
+    // updating-image related code ended
+    sendingProfileData(data);
     setEditing(false);
   };
-  const [isEditing, setEditing] = useState(false);
-  const [user, loading, error] = useAuthState(auth);
-  const [userInfo, setUserInfo] = useState({});
-  const email = user?.email;
-  const { name, img, address, phn } = userInfo;
+  const sendingProfileData = (data) => {
+    const updatedData = data;
+    fetch(`http://localhost:5000/profile/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then((res) => res.json)
+      .then((data) => {});
+  };
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/user/${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUserInfo(data);
-      });
-  }, [email]);
   if (loading) {
     return <Loading></Loading>;
   }
@@ -125,13 +152,14 @@ const Profile = () => {
         </div>
       )}
       {isEditing && (
-        <div className="nested-route-wrapper">
+        <div className="nested-route-wrapper-editing">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
+                defaultValue={name}
                 type="text"
                 placeholder="Your name"
                 className="input input-bordered"
@@ -142,12 +170,27 @@ const Profile = () => {
                 })}
               />
             </div>
+            <div className="form-control">
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                htmlFor="file_input"
+              >
+                Upload Image
+              </label>
+              <input
+                className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="file_input"
+                type="file"
+                {...register("img", {})}
+              />
+            </div>
 
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Phone Number</span>
               </label>
               <input
+                defaultValue={phn}
                 type="text"
                 placeholder="Your phone number"
                 className="input input-bordered"
@@ -168,11 +211,11 @@ const Profile = () => {
                 </span>
               </label>
               <textarea
-                cl
+                defaultValue={address}
                 type="text"
                 placeholder="Your Full Address"
                 className="input input-bordered contact-text-area"
-                {...register("text", {
+                {...register("address", {
                   required: {
                     value: false,
                   },

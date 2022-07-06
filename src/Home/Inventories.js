@@ -4,15 +4,11 @@ import { useInventories } from "../hooks/useInventories";
 import "./Home.css";
 
 const Inventories = () => {
-  // const [inventories, setInventories] = useState([]);
+  
   const navigate = useNavigate()
   const {inventories} = useInventories();
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/tools")
-  //     .then((res) => res.json())
-  //     .then((data) => setInventories(data));
-  // }, []);
+  
   return (
     <div className="" id="inventories">
       <h1 className="text-primary text-center text-4xl my-10">Inventories</h1>
