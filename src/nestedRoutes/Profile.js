@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebase.init";
+import React, { useState } from "react";
+
+import useUserInfo from "../hooks/useUserInfo";
+
 import Loading from "../Shared/Loading";
 import "./NestedRoutes.css";
 import { useForm } from "react-hook-form";
-import useUserInfo from "../hooks/useUserInfo";
 
 const Profile = () => {
   const {
@@ -15,11 +15,10 @@ const Profile = () => {
   } = useForm();
 
   const [isEditing, setEditing] = useState(false);
-  const { userInfo, loading } = useUserInfo();
+
+  const { userInfo, user, loading, error } = useUserInfo();
 
   const { email, name, img, address, phn } = userInfo;
-
-  // getting data for profile page
 
   // updating data for profile page
   const onSubmit = async (data) => {
@@ -27,6 +26,7 @@ const Profile = () => {
     const formData = new FormData();
 
     formData.append("img", data.img[0]);
+    console.log(data);
 
     fetch(
       "https://api.imgbb.com/1/upload?key=778aabdeab4b1469f4ccd5b8085229fb",
@@ -37,9 +37,10 @@ const Profile = () => {
     )
       .then((res) => res.json())
       .then((result) => {
-        console.log(data);
+        console.log(result);
       });
     // updating-image related code ended
+
     sendingProfileData(data);
     setEditing(false);
   };
@@ -60,19 +61,19 @@ const Profile = () => {
     return <Loading></Loading>;
   }
   return (
-    <div className="nested-route-wrapper">
-      <h1 className="text-center text-4xl text-primary my-5">{name}</h1>
+    <div className="nested-route-wrapper mb-10">
+      <h1 className="text-center text-4xl text-primary my-7 ">
+        {!isEditing ? "My Profile" : "Edit Profile"}
+      </h1>
       {!isEditing && (
-        <div className="card card-side bg-base-100 shadow-xl profile-container">
-          <figure>
-            <img
-              style={{ width: "200px", height: "250px" }}
-              src={img}
-              alt="profile-pic"
-            />
-          </figure>
-          <div className="card-body">
-            <ul className="text-primary profile-item-list">
+        <div className="profile-container">
+              <div>
+                <div className='profile-pic-wrapper'>
+                  <img className="profile-pic" src={img} alt="profile-pic"/>
+                </div>
+                <h1 className='text-4xl text-center'>{name}</h1>
+              </div>
+              <ul className="text-primary profile-item-list">
               <li className="align-center profile-item">
                 <span>
                   <svg
@@ -148,7 +149,7 @@ const Profile = () => {
                 Edit Profile
               </button>
             </div>
-          </div>
+
         </div>
       )}
       {isEditing && (

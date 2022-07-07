@@ -1,4 +1,5 @@
 
+import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Inventory from './DynamicPage/Inventory';
@@ -15,6 +16,7 @@ import Navbar from './Shared/Navbar';
 function App() {
   return (
     <div className="App">
+      <Toaster></Toaster>
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
