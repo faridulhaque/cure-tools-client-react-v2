@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Shared.css";
 import { HashLink as Link } from "react-router-hash-link";
 import { auth } from "../firebase/firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
-import Loading from "./Loading";
+
 import { signOut } from "firebase/auth";
 import useUserInfo from "../hooks/useUserInfo";
 
 const Navbar = () => {
- const {userInfo, user,  loading} = useUserInfo();
- 
- 
+  const { userInfo, user, loading, avatar, prifilePic } = useUserInfo();
 
   const handleSignOut = () => {
     signOut(auth)
@@ -54,6 +51,14 @@ const Navbar = () => {
                   Inventories
                 </Link>
               </li>
+              {
+                user && <li>
+                <Link smooth to="/dashboard">
+                  {" "}
+                  Dashboard
+                </Link>
+              </li>
+              }
               <li>
                 <Link smooth to="/home#contact">
                   {" "}
@@ -104,24 +109,26 @@ const Navbar = () => {
                 </svg>
               </Link>
             </li>
-            <li className="tooltip tooltip-bottom" data-tip="Dashboard">
-              <Link to="/dashboard">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                  />
-                </svg>
-              </Link>
-            </li>
+            {user && (
+              <li className="tooltip tooltip-bottom" data-tip="Dashboard">
+                <Link to="/dashboard">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            )}
             <li className="tooltip tooltip-bottom" data-tip="Reviews">
               <Link smooth to="/home#reviews">
                 <svg
@@ -163,7 +170,7 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <img className='nav-avatar' src={userInfo.img} alt="avatar"/>
+              <img className="nav-avatar" src={userInfo.profilePic ? userInfo.profilePic : userInfo.primaryPic || avatar} alt="avatar" />
               <ul className="menu menu-horizontal p-0">
                 <li>
                   <button

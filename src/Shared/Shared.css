@@ -8,3 +8,8 @@
 .footer-icon:hover{
     cursor: pointer;
 }
+.custom-dialog{
+    height: 200px;
+    display: flex;
+    
+}

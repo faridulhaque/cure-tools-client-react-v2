@@ -19,20 +19,22 @@ const SignUp = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const name = data.name;
-    await createUserWithEmailAndPassword(data.email, data.password);
-    await updateProfile({
-      displayName: name,
-      photoURL: "https://i.ibb.co/6YK1cXs/avatar.jpg",
-    });
-    reset();
-  };
+  
   const navigate = useNavigate();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+  const onSubmit = async (data) => {
+    const name = data.name;
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({
+      displayName: name,
+    });
+    reset();
+  };
+
   const [token] = useToken(user || gUser);
 
   if (loading || gLoading || updating) {

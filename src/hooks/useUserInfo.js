@@ -4,7 +4,8 @@ import { auth } from "../firebase/firebase.init";
 
 const useUserInfo = () => {
   const [user, loading, error] = useAuthState(auth);
-  const email = user?.email
+  const email = user?.email;
+  const avatar = "https://i.ibb.co/6YK1cXs/avatar.jpg";
 
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
@@ -18,8 +19,9 @@ const useUserInfo = () => {
   return {
     userInfo,
     user,
-    loading, 
-    error
+    loading,
+    error,
+    avatar
   };
 };
 export default useUserInfo;

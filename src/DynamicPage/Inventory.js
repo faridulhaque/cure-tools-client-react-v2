@@ -11,7 +11,8 @@ const Inventory = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(0);
   const { userInfo } = useUserInfo({});
-  const { email, name, address, phn } = userInfo;
+  const { email, address, phn, profileName, primaryName} = userInfo;
+  const name = profileName ? profileName : primaryName;
   useEffect(() => {
     fetch(`http://localhost:5000/tool/${id}`)
       .then((res) => res.json())
@@ -21,6 +22,7 @@ const Inventory = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
+    const productName = product.name;
     const price = product.price;
     const paymentStatus = 'pending'
 
@@ -32,6 +34,7 @@ const Inventory = () => {
       email,
       phn,
       address,
+      productName,
       quantity,
       price, 
       paymentStatus

@@ -2,32 +2,34 @@ import { useEffect, useState } from "react";
 
 const useToken = (user) => {
   const [token, setToken] = useState("");
-  const name = user?.user?.displayName;
   const email = user?.user?.email;
+  const primaryName = user?.user?.displayName;
+  const primaryPic = user?.user?.photoURL;
   
-  const image = user?.user?.photoURL;
-
   const userData = {
-    name,
     email,
-    image,
+    primaryName,
+    
+    primaryPic,
+
+    
   };
 
   useEffect(() => {
-    if (name && email && image) {
+    if (primaryName && email) {
       fetch(`http://localhost:5000/user/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(userData)
+        body: JSON.stringify(userData),
       })
         .then((res) => res.json())
         .then((data) => {
           setToken("12345678");
         });
     }
-  }, [name, email, image]);
+  }, [primaryPic, email]);
 
   return [token];
 };

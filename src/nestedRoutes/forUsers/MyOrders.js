@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../../Shared/Loading";
 import { auth } from "../../firebase/firebase.init";
-import { Confirm } from "react-st-modal";
+import { Confirm, CustomDialog } from "react-st-modal";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import CustomDialogContent from "../../Shared/CustomDialogContent";
+import PaymentDialog from "../../Payment/PaymentDialog";
 
 const MyOrders = () => {
   const navigate = useNavigate();
@@ -19,6 +21,15 @@ const MyOrders = () => {
         setMyOrders(data);
       });
   }, [email, myOrders]);
+  // payment option implemented
+  const handlePayment = async ({ mo }) => {
+    const result = await CustomDialog(<PaymentDialog mo={mo} />, {
+      title: `pay $ ${parseInt(mo.price) * parseInt(mo.quantity)} for ${
+        mo.productName
+      }`,
+      showCloseIcon: true,
+    });
+  };
 
   const handleDelete = async (id) => {
     const result = await Confirm(
@@ -58,29 +69,38 @@ const MyOrders = () => {
               <th>Cancellation</th>
             </tr>
           </thead>
-          {myOrders.map((mo) => (
-            <tr key={mo._id} className="hover">
-              <td>{mo.name}</td>
-              <td>$ {mo.price}</td>
-              <td>
-                {mo.quantity} <sub>unit</sub>
-              </td>
-              <td>$ {parseInt(mo.price) * parseInt(mo.quantity)}</td>
-              <td>{mo.paymentStatus}</td>
-              <td></td>
-              <td>
-                <button
-                  onClick={() => handleDelete(mo._id)}
-                  className="btn btn-success"
-                >
-                  Pay Now
-                </button>
-              </td>
-              <td>
-                <button className="btn btn-danger">Cancel Order</button>
-              </td>
-            </tr>
-          ))}
+          <tbody>
+            {myOrders.map((mo) => (
+              <tr key={mo._id} className="hover">
+                <td>{mo.productName}</td>
+                <td>$ {mo.price}</td>
+                <td>
+                  {mo.quantity} <sub>unit</sub>
+                </td>
+                <td>$ {parseInt(mo.price) * parseInt(mo.quantity)}</td>
+                <td className={mo.paymentStatus === 'paid' ? 'text-green-500' : 'text-yellow-500'}>{mo.paymentStatus}</td>
+                <td className='text-red-500'>{mo.transaction}</td>
+                <td>
+                  <button
+                    onClick={() => handlePayment({ mo })}
+                    className="btn btn-success text-white"
+                    disabled={mo.paymentStatus === 'paid'}
+                  >
+                    Pay Now
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(mo._id)}
+                    className="btn btn-danger text-white"
+                    disabled={mo.paymentStatus === 'paid'}
+                  >
+                    Cancel Order
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
