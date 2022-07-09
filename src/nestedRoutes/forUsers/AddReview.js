@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ReactStars from "react-rating-stars-component";
+import { Alert } from "react-st-modal";
 import useUserInfo from "../../hooks/useUserInfo";
 import Loading from "../../Shared/Loading";
 import "../NestedRoutes.css";
 
 const AddReview = () => {
-  const { userInfo, loading, avatar } = useUserInfo();
+  const { userInfo, loading, avatar } = useUserInfo(0);
   const { profileName, primaryName, email, profilePic, primaryPic } = userInfo;
   const name = profileName ? profileName : primaryName;
   const img = profilePic ? profilePic : primaryPic || avatar;
 
   const [ratingStar, setRatingStar] = useState(0);
-  const [ratingText, setRatingText] = useState("");
   const [ratingInfo, setRatingInfo] = useState({});
   const [isEditing, setEditing] = useState(false);
 
@@ -29,30 +29,50 @@ const AddReview = () => {
   const handleRatingStar = (newRating) => {
     setRatingStar(newRating);
   };
-  const reviewData = {
-    email,
-    ratingStar,
-    ratingText,
-  };
 
   //   sending updated review to server
-  const handleReview = () => {
-    fetch(`http://localhost:5000/review/${email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(reviewData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          setTimeout(() => {
-            setEditing(false);
-            toast.success("Successfully added!", { id: "review" });
-          }, 2000);
-        }
-      });
+  const handleReview = async (e) => {
+    e.preventDefault();
+    const ratingText = e.target.ratingText.value;
+    const reviewData = {
+      email,
+      name,
+      img,
+      ratingStar,
+      ratingText,
+    };
+
+    if (ratingStar === 0) {
+      await Alert(
+        "Select any of the stars to give rating. If they look selected please select again. ",
+        "Rate with the stars!"
+      );
+    } else if (ratingText === "") {
+      await Alert(
+        "Please write something in the box",
+        "Don't leave the box empty!"
+      );
+    } else if(ratingText.length >= 101){
+      await Alert("Keep your text below 100 characters!", "your text is too long!")
+    }
+     else {
+      fetch(`http://localhost:5000/myReview/${email}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(reviewData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            setTimeout(() => {
+              setEditing(false);
+              toast.success("Successfully added!", { id: "review" });
+            }, 1000);
+          }
+        });
+    }
   };
   if (loading) {
     return <Loading></Loading>;
@@ -62,23 +82,22 @@ const AddReview = () => {
       {!ratingInfo._id && !isEditing && (
         <>
           <h1 className="text-center text-primary text-3xl">Add a Review</h1>
-          <div className="rating-wrapper">
+          <form onSubmit={handleReview} className="rating-wrapper">
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure className="px-10 pt-10">
                 <textarea
                   type="text"
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs text-area-review"
-                  onBlur={(e) => setRatingText(e.target.value)}
+                  name="ratingText"
                 />
               </figure>
               <div className="card-body items-center text-center">
                 <h2 className="card-title mb-3">
                   {" "}
-
                   <ReactStars
                     count={5}
-                    value={5}
+                    value={0}
                     onChange={handleRatingStar}
                     size={25}
                     activeColor="#ffd700"
@@ -86,13 +105,11 @@ const AddReview = () => {
                 </h2>
 
                 <div className="card-actions">
-                  <button onClick={handleReview} className="btn btn-primary">
-                    Submit
-                  </button>
+                  <button className="btn btn-primary">Submit</button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </>
       )}
 
@@ -102,14 +119,14 @@ const AddReview = () => {
             Edit your review!
           </h1>
           <p className="text-center text-primary text-1xl">as {name}</p>
-          <div className="rating-wrapper">
+          <form onSubmit={handleReview} className="rating-wrapper">
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure className="px-10 pt-10">
                 <textarea
                   type="text"
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs text-area-review"
-                  onBlur={(e) => setRatingText(e.target.value)}
+                  name="ratingText"
                   defaultValue={ratingInfo.ratingText}
                 />
               </figure>
@@ -119,7 +136,7 @@ const AddReview = () => {
                   {" "}
                   <ReactStars
                     count={5}
-                    value={ratingInfo.ratingStar}
+                    value={0}
                     onChange={handleRatingStar}
                     size={25}
                     activeColor="#ffd700"
@@ -127,13 +144,13 @@ const AddReview = () => {
                 </h2>
 
                 <div className="card-actions">
-                  <button onClick={handleReview} className="btn btn-primary">
+                  <button type="submit" className="btn btn-primary">
                     Add new review
                   </button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </>
       )}
       {!isEditing && ratingInfo._id && (

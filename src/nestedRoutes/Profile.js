@@ -5,6 +5,7 @@ import useUserInfo from "../hooks/useUserInfo";
 import Loading from "../Shared/Loading";
 import "./NestedRoutes.css";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const {
@@ -30,10 +31,22 @@ const Profile = () => {
 
   // updating data for profile page
   const onSubmit = async (data) => {
+    const updatedData = data;
+    updateImage(data);
+    sendingProfileData(updatedData);
+    setTimeout(() => {
+      setEditing(false);
+      toast.success("Profile successfully updated!", { id: "profile" });
+    }, 1000);
+  };
+
+  // updating image in imgbb
+  const updateImage = (data) => {
     // updating image
     const formData = new FormData();
 
-    formData.append("img", data.img[0]);
+    formData.append("img", data.img[0].name);
+    
 
     fetch(
       "https://api.imgbb.com/1/upload?key=778aabdeab4b1469f4ccd5b8085229fb",
@@ -44,15 +57,13 @@ const Profile = () => {
     )
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        console.log(result)
       });
     // updating-image related code ended
-
-    sendingProfileData(data);
-    setEditing(false);
   };
-  const sendingProfileData = (data) => {
-    const updatedData = data;
+
+  // updating profile info in this function
+  const sendingProfileData = (updatedData) => {
     fetch(`http://localhost:5000/profile/${email}`, {
       method: "PUT",
       headers: {
@@ -60,9 +71,10 @@ const Profile = () => {
       },
       body: JSON.stringify(updatedData),
     })
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => {});
   };
+  // When we update our profile name, we must update our name in review page as well. here are the codes.
 
   if (loading) {
     return <Loading></Loading>;

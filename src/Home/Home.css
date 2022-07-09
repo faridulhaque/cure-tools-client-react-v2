@@ -1,7 +1,3 @@
-/* styles for banner section started */
-
-
-/* styles for banner section ended */
 /* ------------------------------- */
 /* styles for specialty section started */
 .specialty {
@@ -19,8 +15,47 @@
   justify-content: center;
 }
 
+
+
 /* styles for specialty section ended */
 /* ---------------------------------- */
+/* styles for reviews section started */
+.reviews-wrapper{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  /* background-color: rgb(38,49,82); */
+  padding: 25px 0;
+  color: white;
+}
+.info-reviews{
+  display: flex;
+  justify-content: space-between;
+  
+  margin-bottom: 20px;
+  align-items: center;
+}
+.name-img-wrapper-reviews{
+  display: flex;
+  align-items: center;
+}
+.review-img{
+  width: 40px;
+  height: 50px;
+  border-radius: 50%;
+
+}
+.review-card{
+  background-color: rgb(38,49,82);
+  /* background-color: white; */
+  width: 400px;
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+.user-name-review{
+  margin-left: 10px;
+}
+
 /* styles for inventories started */
 .cards-group {
   display: grid;
@@ -38,17 +73,20 @@
   box-shadow: 0 4px 8px 0 rgb(38, 49, 82, 0.2), 0 6px 20px 0 rgb(38, 49, 82, 0.19);
 
 }
-.inventory-image-container{
+
+.inventory-image-container {
   position: relative;
 }
+
 .inventory-img {
   width: 100%;
   height: 220px;
- 
+
 }
-.inventory-button{
-  background-color: rgb(131,140,153);
-  
+
+.inventory-button {
+  background-color: rgb(131, 140, 153);
+
   border: none;
   width: 40px;
   height: 50px;
@@ -58,40 +96,47 @@
   right: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   z-index: 1;
-  
+
 }
-.fa-plus{
+
+.fa-plus {
   font-size: 16px;
 }
+
 /* styles for inventories ended */
 /* ---------------------------- */
 /* styles for contact form section started */
-.contact-main{
+.contact-main {
   width: 60%;
   margin-left: 20%;
   margin-right: 20%;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding-top: 25px;
-  border: 1px solid rgb(34,43,72);
+  border: 1px solid rgb(34, 43, 72);
 
 }
-.text-danger{
+
+.text-danger {
   color: red;
 }
-.contact-text{
+
+.contact-text {
   text-align: center;
 }
-.contact-text-area{
+
+.contact-text-area {
   resize: none;
   height: 100px;
 }
+
 /* styles for contact form section ended */
 
 /* responsive for mobile devices */
 
 
 @media only screen and (max-width: 570px) {
+
   .specialty {
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: 15px;
@@ -111,13 +156,33 @@
     margin-right: 15%;
 
   }
-  .contact-main{
+
+  .contact-main {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
   }
-  .contact-text{
+
+  .contact-text {
     margin: 0 15px;
     text-align: center;
   }
+  .reviews-wrapper{
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 25px;
+ }
+ .review-card{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+ }
+ .info-reviews{
+  display: block;
+ }
+ .name-img-wrapper-reviews{
+  margin-bottom: 10px;
+ }
+ .comment-reviews{
+  margin-top: -10px;
+ }
 }
