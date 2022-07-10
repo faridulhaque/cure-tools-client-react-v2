@@ -7,6 +7,7 @@ import SignIn from './entry/SignIn';
 import SignUp from './entry/SignUp';
 import Home from './Home/Home';
 import Dashboard from './nestedRoutes/Dashboard';
+import ManageUsers from './nestedRoutes/forAdmins/ManageUsers';
 import AddReview from './nestedRoutes/forUsers/AddReview';
 import MyOrders from './nestedRoutes/forUsers/MyOrders';
 import Profile from './nestedRoutes/Profile';
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<Profile></Profile>}></Route>
           <Route path="addReview" element={<AddReview></AddReview>}></Route>
           <Route path="myOrders" element={<MyOrders></MyOrders>}></Route>
+          <Route path="manageUsers" element={<ManageUsers></ManageUsers>}></Route>
         </Route>
         <Route path="/signUp" element={<SignUp></SignUp>}></Route>
         <Route path="/signIn" element={<SignIn></SignIn>}></Route>
