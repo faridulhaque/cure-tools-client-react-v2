@@ -45,7 +45,7 @@ const Profile = () => {
     // updating image
     const formData = new FormData();
 
-    formData.append("img", data.img[0].name);
+    formData.append("img", data.img[0]);
     
 
     fetch(
