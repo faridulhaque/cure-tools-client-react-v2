@@ -1,20 +1,28 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import ReactPaginate from "react-paginate";
 import { CustomDialog } from "react-st-modal";
 import ManageOrdersDialog from "./ManageOrdersDialog";
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
   useEffect(() => {
     fetch("http://localhost:5000/orders")
       .then((res) => res.json())
-      .then((data) => setOrders(data));
+      .then((data) => {
+        setPageCount(Math.ceil(parseInt(data.length) / 5));
+        setOrders(data);
+      });
   }, [orders]);
   const handleDetails = async ({ order }) => {
-    const result = await CustomDialog(<ManageOrdersDialog order={order} ></ManageOrdersDialog>, {
-      title: 'Details',
-      showCloseIcon: true,
-    });
+    const result = await CustomDialog(
+      <ManageOrdersDialog order={order}></ManageOrdersDialog>,
+      {
+        title: "Details",
+        showCloseIcon: true,
+      }
+    );
   };
   return (
     <div>
@@ -57,7 +65,7 @@ const ManageOrders = () => {
                       : "text-center text-yellow-500"
                   }
                 >
-                  {order.shipmentStatus ? order.shipmentStatus : "pending"}
+                  {order.shipmentStatus ? "Shipped" : "pending"}
                 </td>
                 <td className="text-center">
                   <button
@@ -72,6 +80,7 @@ const ManageOrders = () => {
           </tbody>
         </table>
       </div>
+     
     </div>
   );
 };

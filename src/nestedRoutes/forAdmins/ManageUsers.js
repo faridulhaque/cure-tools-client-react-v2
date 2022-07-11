@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert, Confirm } from "react-st-modal";
 import useAllUsers from "../../hooks/useAllUsers";
 import useUserInfo from "../../hooks/useUserInfo";
@@ -6,8 +6,10 @@ import Loading from "../../Shared/Loading";
 import "../NestedRoutes.css";
 
 const ManageUsers = () => {
-  const { userInfo, loading } = useUserInfo();
+  const { loading } = useUserInfo();
+
   const { users } = useAllUsers();
+
   const handleMakeAdmin = ({ user }) => {
     const role = "Admin";
     const name = user?.profileName ? user?.profileName : user?.primaryName;
@@ -49,12 +51,14 @@ const ManageUsers = () => {
         });
     }
   };
+
   if (loading) {
     return <Loading></Loading>;
   }
   return (
     <>
       <h1 className="text-center my-5 text-primary text-4xl">Manage Users</h1>
+
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
