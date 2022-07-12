@@ -15,7 +15,7 @@ const useToken = (user) => {
 
   useEffect(() => {
     if (primaryName && email) {
-      fetch(`http://localhost:5000/user/${email}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/user/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

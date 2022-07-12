@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useAllUsers = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://mighty-retreat-73260.herokuapp.com/users`, {
       headers: {
         authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
       },

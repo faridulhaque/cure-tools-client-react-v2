@@ -19,7 +19,7 @@ const AddReview = () => {
   //   getting review data to show in the page
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myReview/${email}`)
+    fetch(`https://mighty-retreat-73260.herokuapp.com/myReview/${email}`)
       .then((res) => res.json())
       .then((data) => {
         setRatingInfo(data);
@@ -56,7 +56,7 @@ const AddReview = () => {
       await Alert("Keep your text below 100 characters!", "your text is too long!")
     }
      else {
-      fetch(`http://localhost:5000/myReview/${email}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/myReview/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

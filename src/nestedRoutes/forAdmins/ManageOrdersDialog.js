@@ -22,7 +22,7 @@ const ManageOrdersDialog = ({ order }) => {
     ? orderer?.profileName
     : orderer?.primaryName;
   const handleShipment = (id) => {
-    fetch(`http://localhost:5000/shipment/${id}`, {
+    fetch(`https://mighty-retreat-73260.herokuapp.com/shipment/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -43,7 +43,7 @@ const ManageOrdersDialog = ({ order }) => {
     );
     if (result) {
       console.log(id);
-      fetch(`http://localhost:5000/order/${id}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/order/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

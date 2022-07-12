@@ -8,7 +8,7 @@ const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   useEffect(() => {
-    fetch("http://localhost:5000/orders", {
+    fetch("https://mighty-retreat-73260.herokuapp.com/orders", {
       headers: {
         authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
       },

@@ -13,9 +13,14 @@ const MyOrders = () => {
   const email = user?.email;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myOrders?email=${email}`, {
-      authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
-    })
+    fetch(
+      `https://mighty-retreat-73260.herokuapp.com/myOrders?email=${email}`,
+      {
+        headers: {
+          authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setMyOrders(data);
@@ -38,7 +43,7 @@ const MyOrders = () => {
     );
 
     if (result) {
-      fetch(`http://localhost:5000/order/${id}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/order/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

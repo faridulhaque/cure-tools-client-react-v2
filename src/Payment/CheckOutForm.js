@@ -17,7 +17,7 @@ const CheckOutForm = ({ data }) => {
 
   useEffect(() => {
     if (price) {
-      fetch("http://localhost:5000/create-payment-intent", {
+      fetch("https://mighty-retreat-73260.herokuapp.com/create-payment-intent", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -75,7 +75,7 @@ const CheckOutForm = ({ data }) => {
     const transaction = trId;
     const data = { paymentStatus, transaction };
     if (paymentStatus && transaction) {
-      fetch(`http://localhost:5000/order/payment/${_id}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/order/payment/${_id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

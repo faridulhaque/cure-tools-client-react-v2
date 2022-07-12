@@ -15,7 +15,7 @@ const Inventory = () => {
   const { email, address, phn, profileName, primaryName } = userInfo;
   const name = profileName ? profileName : primaryName;
   useEffect(() => {
-    fetch(`http://localhost:5000/tool/${id}`)
+    fetch(`https://mighty-retreat-73260.herokuapp.com/tool/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
@@ -45,7 +45,7 @@ const Inventory = () => {
       parseInt(data.quantity) >= parseInt(product.minQuantity) &&
       parseInt(data.quantity) <= parseInt(product.avlQuantity)
     ) {
-      fetch("http://localhost:5000/orders", {
+      fetch("https://mighty-retreat-73260.herokuapp.com/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",

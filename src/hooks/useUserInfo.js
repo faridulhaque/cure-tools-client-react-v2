@@ -9,23 +9,23 @@ const useUserInfo = () => {
 
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${email}`,{
+    fetch(`https://mighty-retreat-73260.herokuapp.com/user/${email}`, {
       headers: {
-        authorization: `Bearer: ${localStorage.getItem("accessToken")}`
-      }
+        authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
         setUserInfo(data);
       });
-  }, [email]);
+  }, [email, userInfo]);
 
   return {
     userInfo,
     user,
     loading,
     error,
-    avatar
+    avatar,
   };
 };
 export default useUserInfo;

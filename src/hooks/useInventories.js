@@ -5,7 +5,7 @@ export const useInventories = () => {
   
 
   useEffect(() => {
-    fetch("http://localhost:5000/tools")
+    fetch("https://mighty-retreat-73260.herokuapp.com/tools")
       .then((res) => res.json())
       .then((data) => setInventories(data));
   }, [inventories]);

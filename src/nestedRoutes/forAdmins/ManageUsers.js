@@ -36,7 +36,7 @@ const ManageUsers = () => {
     const isConfirm = await Confirm(`${updatedUser.warning}`, "Are you sure?");
 
     if (isConfirm) {
-      fetch(`http://localhost:5000/handleAdmin/${email}`, {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/handleAdmin/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
