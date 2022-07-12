@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./inventory.css";
 import { useNavigate, useParams } from "react-router-dom";
 import useUserInfo from "../hooks/useUserInfo";
-import { useForm } from "react-hook-form";
+
 import { Alert, Confirm } from "react-st-modal";
+import Loading from "../Shared/Loading";
 
 const Inventory = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(0);
-  const { userInfo } = useUserInfo({});
-  const { email, address, phn, profileName, primaryName} = userInfo;
+  const { userInfo, loading } = useUserInfo({});
+  const { email, address, phn, profileName, primaryName } = userInfo;
   const name = profileName ? profileName : primaryName;
   useEffect(() => {
     fetch(`http://localhost:5000/tool/${id}`)
@@ -24,7 +25,7 @@ const Inventory = () => {
     const name = e.target.name.value;
     const productName = product.name;
     const price = product.price;
-    const paymentStatus = 'pending'
+    const paymentStatus = "pending";
 
     const phn = e.target.phn.value;
     const address = e.target.address.value;
@@ -36,8 +37,8 @@ const Inventory = () => {
       address,
       productName,
       quantity,
-      price, 
-      paymentStatus
+      price,
+      paymentStatus,
     };
 
     if (
@@ -75,9 +76,21 @@ const Inventory = () => {
       navigate("/dashboard/myOrders");
     }
   };
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
-      <h2 className="text-center text-3xl my-10">Order Product</h2>
+      {userInfo?.role !== "Admin" && (
+        <h2 className="text-center text-3xl my-10">Order Product</h2>
+      )}
+      {userInfo?.role === "Admin" && (
+        <h2 className="text-center text-3xl my-10">
+          Details <br />{" "}
+          <button onClick={()=>(navigate('/dashboard/manageProducts'))} className="btn btn-primary mt-5">view all products</button>
+        </h2>
+      )}
+
       <div className="inventory-single-detail">
         <div className="card lg:card-side bg-base-100 shadow-xl">
           <figure>
@@ -108,89 +121,92 @@ const Inventory = () => {
       {/* above codes are for the details of a single product */}
       {/* --------------------------------------------------- */}
       {/* below codes are for the address of the client */}
-      <div className="inventory-order-form">
-        <h2 className="text-center text-3xl my-5">Order Form</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="my-10 inventory-order-form-top">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Your name</span>
-              </label>
-              <input
-                defaultValue={name}
-                required
-                type="text"
-                placeholder="your full name"
-                className="input input-bordered input-inventory-order-form"
-                name="name"
-              />
+      {userInfo?.role !== "Admin" && (
+        <div className="inventory-order-form">
+          <h2 className="text-center text-3xl my-5">Order Form</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="my-10 inventory-order-form-top">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your name</span>
+                </label>
+                <input
+                  defaultValue={name}
+                  required
+                  type="text"
+                  placeholder="your full name"
+                  className="input input-bordered input-inventory-order-form"
+                  name="name"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Product"s Quantity</span>
+                </label>
+                <input
+                  required
+                  type="number"
+                  placeholder="input a quantity for your product"
+                  className="input input-bordered input-inventory-order-form"
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Phone No.</span>
+                </label>
+                <input
+                  defaultValue={phn}
+                  required
+                  type="text"
+                  placeholder="Your phone number"
+                  className="input input-bordered input-inventory-order-form"
+                  name="phn"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Email</span>
+                </label>
+                <input
+                  value={email}
+                  disabled
+                  required
+                  type="text"
+                  placeholder="your email"
+                  className="input input-bordered input-inventory-order-form"
+                  name="email"
+                />
+              </div>
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Product"s Quantity</span>
-              </label>
-              <input
-                required
-                type="number"
-                placeholder="input a quantity for your product"
-                className="input input-bordered input-inventory-order-form"
-                onChange={(e) => setQuantity(e.target.value)}
-              />
+            <div className="inventory-order-form-bottom">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">
+                    Your Address (Please add all details like division,
+                    district, locality, road no, house no, and other additional
+                    information so the delivery person can easily find out the
+                    exact location)
+                  </span>
+                </label>
+                <textarea
+                  required
+                  type="text"
+                  placeholder="your full address"
+                  className="input input-bordered textarea-inventory-order-form"
+                  defaultValue={address}
+                  name="address"
+                />
+              </div>
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Your Phone No.</span>
-              </label>
-              <input
-                defaultValue={phn}
-                required
-                type="text"
-                placeholder="Your phone number"
-                className="input input-bordered input-inventory-order-form"
-                name="phn"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Your Email</span>
-              </label>
-              <input
-                value={email}
-                disabled
-                required
-                type="text"
-                placeholder="your email"
-                className="input input-bordered input-inventory-order-form"
-                name="email"
-              />
-            </div>
-          </div>
-          <div className="inventory-order-form-bottom">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">
-                  Your Address (Please add all details like division, district,
-                  locality, road no, house no, and other additional information
-                  so the delivery person can easily find out the exact location)
-                </span>
-              </label>
-              <textarea
-                required
-                type="text"
-                placeholder="your full address"
-                className="input input-bordered textarea-inventory-order-form"
-                defaultValue={address}
-                name="address"
-              />
-            </div>
-            <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

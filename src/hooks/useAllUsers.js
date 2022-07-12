@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
-const useAllUsers = (received) => {
+const useAllUsers = () => {
   const [users, setUsers] = useState([]);
-  const searchedUser = users.find((user) => user?.email === received);
   useEffect(() => {
     fetch(`http://localhost:5000/users`)
       .then((res) => res.json())
@@ -12,7 +11,6 @@ const useAllUsers = (received) => {
   }, [users]);
   return {
     users,
-    searchedUser
   };
 };
 export default useAllUsers;

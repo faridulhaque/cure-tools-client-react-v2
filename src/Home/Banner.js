@@ -7,6 +7,7 @@ import "./Home.css";
 
 const Banner = () => {
   const [user, loading, error] = useAuthState(auth);
+
   if (loading) {
     return <Loading />;
   }
