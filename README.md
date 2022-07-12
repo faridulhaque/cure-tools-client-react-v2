@@ -13,9 +13,6 @@
 * I used tailwind CSS and daisy UI to style the site. 
 * Firebase authentication and JSON web token are used to secure the site. 
 * Stripe is used to create a payment method
-<<<<<<< HEAD
+
 * Heroku server is used for hosting data and MongoDB is used to store the data 
 * [server side](https://github.com/faridulhaque/cure-tools-new-server)
-=======
-* Heroku server is used for hosting data and MongoDB is used to store the data
->>>>>>> 9487002593429385ad635141e9447ecc531c2bcc
