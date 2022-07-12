@@ -13,14 +13,11 @@ const MyOrders = () => {
   const email = user?.email;
 
   useEffect(() => {
-    fetch(
-      `https://mighty-retreat-73260.herokuapp.com/myOrders?email=${email}`,
-      {
-        headers: {
-          authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+    fetch(`https://mighty-retreat-73260.herokuapp.com/myOrders?email=${email}`, {
+      headers: {
+        authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setMyOrders(data);
