@@ -5,14 +5,12 @@ const useToken = (user) => {
   const email = user?.user?.email;
   const primaryName = user?.user?.displayName;
   const primaryPic = user?.user?.photoURL;
-  
+
   const userData = {
     email,
     primaryName,
-    
-    primaryPic,
 
-    
+    primaryPic,
   };
 
   useEffect(() => {
@@ -26,7 +24,10 @@ const useToken = (user) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setToken("12345678");
+          const accessToken = data.token;
+          
+          localStorage.setItem("accessToken", accessToken);
+          setToken(accessToken);
         });
     }
   }, [primaryPic, email]);

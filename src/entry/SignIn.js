@@ -9,6 +9,8 @@ import {
 import { auth } from "../firebase/firebase.init";
 import useToken from "../hooks/useToken";
 import Loading from "../Shared/Loading";
+import { Alert, Prompt } from "react-st-modal";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const SignIn = () => {
   const [viewPassword, setViewPassword] = useState(true);
@@ -20,6 +22,7 @@ const SignIn = () => {
   } = useForm();
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
+
     reset();
   };
   const navigate = useNavigate();
@@ -35,9 +38,29 @@ const SignIn = () => {
   if (loading || gLoading) {
     return <Loading></Loading>;
   }
+  if (error) {
+  }
   if (token) {
     navigate(from, { replace: true });
   }
+
+  const handleForgotPassword = async () => {
+    const email = await Prompt("Please input your registerer email", {
+      isRequired: true,
+    });
+
+    if (/\S+@\S+\.\S+/.test(email)) {
+      await sendPasswordResetEmail(auth, email)
+        .then(() => {})
+        .catch((error) => {});
+      await Alert(
+        `A verification email has been sent to ${email}`,
+        "Verification email sent"
+      );
+    } else {
+      await Alert("Please input a valid email address", "Invalid email");
+    }
+  };
   return (
     <div>
       <div
@@ -77,7 +100,8 @@ const SignIn = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                   {!viewPassword ? (
-                    <svg style={{cursor: 'pointer'}}
+                    <svg
+                      style={{ cursor: "pointer" }}
                       onClick={() => setViewPassword(!viewPassword)}
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
@@ -98,7 +122,8 @@ const SignIn = () => {
                       />
                     </svg>
                   ) : (
-                    <svg style={{cursor: 'pointer'}}
+                    <svg
+                      style={{ cursor: "pointer" }}
                       onClick={() => setViewPassword(!viewPassword)}
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4"
@@ -136,12 +161,31 @@ const SignIn = () => {
                     "password must be at least 8 characters")}
               </small>
               <br />
-              <small style={{ color: "black" }}>
-                Not a member?{" "}
-                <Link className="entry-link" to="/signUp">
-                  Click Here!
-                </Link>{" "}
-              </small>
+              <label className="label">
+                <small style={{ color: "black" }}>
+                  Not a member?{" "}
+                  <Link className="entry-link" to="/signUp">
+                    Click Here!
+                  </Link>{" "}
+                </small>
+                <small>
+                  <button
+                    onClick={handleForgotPassword}
+                    type="button"
+                    className="text-primary"
+                  >
+                    Forgot Password?
+                  </button>
+                </small>
+              </label>
+
+              <br />
+              {error && (
+                <small className="text-red-500">
+                  {error.message.includes("auth/wrong-password") &&
+                    "Incorrect password"}
+                </small>
+              )}
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Sign In

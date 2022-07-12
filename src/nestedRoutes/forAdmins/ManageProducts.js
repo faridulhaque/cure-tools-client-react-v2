@@ -6,7 +6,11 @@ import { Confirm } from "react-st-modal";
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://localhost:5000/products", {
+      headers: {
+        authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, [products]);

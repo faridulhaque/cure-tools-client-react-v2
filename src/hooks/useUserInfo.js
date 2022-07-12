@@ -9,12 +9,16 @@ const useUserInfo = () => {
 
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${email}`)
+    fetch(`http://localhost:5000/user/${email}`,{
+      headers: {
+        authorization: `Bearer: ${localStorage.getItem("accessToken")}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         setUserInfo(data);
       });
-  }, [email, userInfo]);
+  }, [email]);
 
   return {
     userInfo,

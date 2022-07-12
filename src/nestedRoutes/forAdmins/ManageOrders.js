@@ -8,7 +8,11 @@ const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   useEffect(() => {
-    fetch("http://localhost:5000/orders")
+    fetch("http://localhost:5000/orders", {
+      headers: {
+        authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setPageCount(Math.ceil(parseInt(data.length) / 5));
@@ -80,7 +84,6 @@ const ManageOrders = () => {
           </tbody>
         </table>
       </div>
-     
     </div>
   );
 };

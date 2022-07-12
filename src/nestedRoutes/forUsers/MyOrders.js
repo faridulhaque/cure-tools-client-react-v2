@@ -3,19 +3,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../../Shared/Loading";
 import { auth } from "../../firebase/firebase.init";
 import { Confirm, CustomDialog } from "react-st-modal";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import CustomDialogContent from "../../Shared/CustomDialogContent";
+
 import PaymentDialog from "../../Payment/PaymentDialog";
 
 const MyOrders = () => {
-  const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
   const [myOrders, setMyOrders] = useState([]);
   const email = user?.email;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myOrders?email=${email}`)
+    fetch(`http://localhost:5000/myOrders?email=${email}`, {
+      authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
+    })
       .then((res) => res.json())
       .then((data) => {
         setMyOrders(data);
@@ -78,13 +78,21 @@ const MyOrders = () => {
                   {mo.quantity} <sub>unit</sub>
                 </td>
                 <td>$ {parseInt(mo.price) * parseInt(mo.quantity)}</td>
-                <td className={mo.paymentStatus === 'paid' ? 'text-green-500' : 'text-yellow-500'}>{mo.paymentStatus}</td>
-                <td className='text-red-500'>{mo.transaction}</td>
+                <td
+                  className={
+                    mo.paymentStatus === "paid"
+                      ? "text-green-500"
+                      : "text-yellow-500"
+                  }
+                >
+                  {mo.paymentStatus}
+                </td>
+                <td className="text-red-500">{mo.transaction}</td>
                 <td>
                   <button
                     onClick={() => handlePayment({ mo })}
                     className="btn btn-success text-white"
-                    disabled={mo.paymentStatus === 'paid'}
+                    disabled={mo.paymentStatus === "paid"}
                   >
                     Pay Now
                   </button>
@@ -93,7 +101,7 @@ const MyOrders = () => {
                   <button
                     onClick={() => handleDelete(mo._id)}
                     className="btn btn-danger text-white"
-                    disabled={mo.paymentStatus === 'paid'}
+                    disabled={mo.paymentStatus === "paid"}
                   >
                     Cancel Order
                   </button>

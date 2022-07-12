@@ -68,6 +68,7 @@ const Profile = () => {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        
       },
       body: JSON.stringify(updatedData),
     })

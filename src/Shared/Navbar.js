@@ -13,6 +13,7 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {})
       .catch((error) => {});
+    localStorage.removeItem("accessToken");
   };
 
   if (loading) {
@@ -51,14 +52,14 @@ const Navbar = () => {
                   Inventories
                 </Link>
               </li>
-              {
-                user && <li>
-                <Link smooth to="/dashboard">
-                  {" "}
-                  Dashboard
-                </Link>
-              </li>
-              }
+              {user && (
+                <li>
+                  <Link smooth to="/dashboard">
+                    {" "}
+                    Dashboard
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link smooth to="/home#contact">
                   {" "}
@@ -170,7 +171,15 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <img className="nav-avatar" src={userInfo.profilePic ? userInfo.profilePic : userInfo.primaryPic || avatar} alt="avatar" />
+              <img
+                className="nav-avatar"
+                src={
+                  userInfo.profilePic
+                    ? userInfo.profilePic
+                    : userInfo.primaryPic || avatar
+                }
+                alt="avatar"
+              />
               <ul className="menu menu-horizontal p-0">
                 <li>
                   <button
