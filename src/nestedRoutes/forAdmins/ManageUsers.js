@@ -18,7 +18,7 @@ const ManageUsers = () => {
     const updatedUser = { ...user, role, warning, confirmation };
     handleAdmin({ updatedUser });
   };
-  const handleRemoveAdmin = ({ user }) => {
+  const handleRemoveAdmin = async ({ user }) => {
     const name = user?.profileName ? user?.profileName : user?.primaryName;
 
     const role = null;
@@ -31,6 +31,7 @@ const ManageUsers = () => {
 
   const handleAdmin = async ({ updatedUser }) => {
     const email = updatedUser?.email;
+
     const role = updatedUser?.role;
 
     const isConfirm = await Confirm(`${updatedUser.warning}`, "Are you sure?");
@@ -102,14 +103,20 @@ const ManageUsers = () => {
                 <td className="text-center">
                   <button
                     onClick={() => handleRemoveAdmin({ user })}
-                    disabled={!user?.role}
+                    disabled={
+                      !user?.role || user?.email === "faridmurshed9@gmail.com"
+                    }
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke={!user?.role ? "whiteSmoke" : "red"}
+                      stroke={
+                        !user?.role || user?.email === "faridmurshed9@gmail.com"
+                          ? "whiteSmoke"
+                          : "red"
+                      }
                       strokeWidth={2}
                     >
                       <path

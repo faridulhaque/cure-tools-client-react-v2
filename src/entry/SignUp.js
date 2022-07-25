@@ -37,13 +37,35 @@ const SignUp = () => {
     reset();
   };
 
-  const [token] = useToken(user || gUser);
-
   if (loading || gLoading || updating) {
     return <Loading></Loading>;
   }
-  if (token) {
-    navigate(from, { replace: true });
+  if (user || gUser) {
+    const email = user?.user?.email || gUser?.user?.email;
+    const primaryName = user?.user?.displayName || gUser?.user?.displayName;
+    const primaryPic = user?.user?.photoURL || gUser?.user?.photoURL;
+
+    const userData = {
+      email,
+      primaryName,
+
+      primaryPic,
+    };
+    if (email && primaryName) {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/newUser/${email}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            navigate(from, { replace: true });
+          }
+        });
+    }
   }
   return (
     <div>

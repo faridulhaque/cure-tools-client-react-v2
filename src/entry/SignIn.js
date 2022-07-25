@@ -7,7 +7,7 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase.init";
-import useToken from "../hooks/useToken";
+
 import Loading from "../Shared/Loading";
 import { Alert, Prompt } from "react-st-modal";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -33,15 +33,37 @@ const SignIn = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const [token] = useToken(user || gUser);
-
   if (loading || gLoading) {
     return <Loading></Loading>;
   }
   if (error) {
   }
-  if (token) {
-    navigate(from, { replace: true });
+  if (gUser) {
+    const email = gUser?.user?.email;
+    const primaryName = gUser?.user?.displayName;
+    const primaryPic = gUser?.user?.photoURL;
+
+    const userData = {
+      email,
+      primaryName,
+
+      primaryPic,
+    };
+    if (email && primaryName) {
+      fetch(`https://mighty-retreat-73260.herokuapp.com/newUser/${email}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            navigate(from, { replace: true });
+          }
+        });
+    }
   }
 
   const handleForgotPassword = async () => {

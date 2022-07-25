@@ -30,7 +30,7 @@ const useToken = (user) => {
           setToken(accessToken);
         });
     }
-  }, [primaryPic, email]);
+  }, [primaryName, email]);
 
   return [token];
 };
