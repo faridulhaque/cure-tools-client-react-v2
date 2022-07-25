@@ -38,6 +38,9 @@ const SignIn = () => {
   }
   if (error) {
   }
+  if(user){
+    navigate(from, { replace: true });
+  }
   if (gUser) {
     const email = gUser?.user?.email;
     const primaryName = gUser?.user?.displayName;
