@@ -10,8 +10,9 @@
 1. manage users wherein he can make a user an admin or remove him,
 2. Manage orders page,
 3. Manage products page
-4. Add a new product page
-   (Use these email and password to see admin routes; email: human@being.com password: human@being.com)
+4. Add a new product page 
+
+(Use these email and password to see admin routes; email: human@being.com password: human@being.com)
 
 - I used tailwind CSS and daisy UI to style the site.
 - Firebase authentication and JSON web token are used to secure the site.
