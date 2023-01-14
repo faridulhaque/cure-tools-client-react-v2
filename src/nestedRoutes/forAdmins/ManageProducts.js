@@ -6,7 +6,7 @@ import { Confirm } from "react-st-modal";
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("https://mighty-retreat-73260.herokuapp.com/products", {
+    fetch("https://cure-tools.up.railway.app/products", {
       headers: {
         authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
       },
@@ -21,7 +21,7 @@ const ManageProducts = () => {
     );
 
     if (result) {
-      const url = `https://mighty-retreat-73260.herokuapp.com/tool/${id}`;
+      const url = `https://cure-tools.up.railway.app/tool/${id}`;
       fetch(url, {
         method: "DELETE",
       })

@@ -13,7 +13,7 @@ const MyOrders = () => {
   const email = user?.email;
 
   useEffect(() => {
-    fetch(`https://mighty-retreat-73260.herokuapp.com/myOrders?email=${email}`, {
+    fetch(`https://cure-tools.up.railway.app/myOrders?email=${email}`, {
       headers: {
         authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
       },
@@ -40,7 +40,7 @@ const MyOrders = () => {
     );
 
     if (result) {
-      fetch(`https://mighty-retreat-73260.herokuapp.com/order/${id}`, {
+      fetch(`https://cure-tools.up.railway.app/order/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

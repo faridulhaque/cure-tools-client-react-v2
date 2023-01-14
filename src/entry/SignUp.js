@@ -52,7 +52,7 @@ const SignUp = () => {
       primaryPic,
     };
     if (email && primaryName) {
-      fetch(`https://mighty-retreat-73260.herokuapp.com/newUser/${email}`, {
+      fetch(`https://cure-tools.up.railway.app/newUser/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

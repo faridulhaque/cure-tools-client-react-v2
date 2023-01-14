@@ -8,12 +8,14 @@ const Reviews = () => {
  
 
   useEffect(() => {
-    fetch("https://mighty-retreat-73260.herokuapp.com/reviews")
+    fetch("https://cure-tools.up.railway.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
       });
   }, [reviews]);
+
+  
   return (
     <>
       <h2 className="text-4xl text-center text-primary mt-10">

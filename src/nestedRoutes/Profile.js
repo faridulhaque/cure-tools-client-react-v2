@@ -64,7 +64,7 @@ const Profile = () => {
 
   // updating profile info in this function
   const sendingProfileData = (updatedData) => {
-    fetch(`https://mighty-retreat-73260.herokuapp.com/profile/${email}`, {
+    fetch(`https://cure-tools.up.railway.app/profile/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

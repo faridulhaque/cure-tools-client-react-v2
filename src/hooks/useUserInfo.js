@@ -9,7 +9,7 @@ const useUserInfo = () => {
 
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
-    fetch(`https://mighty-retreat-73260.herokuapp.com/user/${email}`, {
+    fetch(`https://cure-tools.up.railway.app/user/${email}`, {
       headers: {
         authorization: `Bearer: ${localStorage.getItem("accessToken")}`,
       },

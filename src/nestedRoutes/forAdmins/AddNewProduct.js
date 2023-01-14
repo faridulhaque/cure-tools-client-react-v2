@@ -49,7 +49,7 @@ const AddNewProduct = () => {
   };
   const addingNewProduct = (data) => {
     console.log(data);
-    fetch("https://mighty-retreat-73260.herokuapp.com/tools", {
+    fetch("https://cure-tools.up.railway.app/tools", {
       method: "POST",
       headers: {
         "content-type": "application/json",
